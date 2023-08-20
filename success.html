@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InstaPay - Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .home-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .home-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function navigateToDashboard() {
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Success!</h1>
+        <p>Your transaction has been processed.</p>
+    </div>
+    <button class="home-link" onclick="navigateToDashboard()">Return to Home</button>
+</body>
+</html>

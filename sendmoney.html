@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>InstaPay - Send Money</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f1f1f1;
+    }
+
+    .content-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 56px); /* Adjust based on navbar height */
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .flex-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input[type="text"], input[type="number"], .submit-btn, .home-btn {
+      flex: 1 1 auto;
+      padding: 10px;
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      box-sizing: border-box;
+    }
+
+    .submit-btn, .home-btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .submit-btn:hover, .home-btn:hover {
+      background-color: #45a049;
+    }
+
+    .header-text {
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+
+<script>
+  const exchangeRates = {
+    'USD': { 'USD': 1 },
+    'SGD': { 'USD': 0.75 },
+    'BTC': { 'USD': 50000 }, 
+    'ETH': { 'USD': 2000 }, 
+  };
+
+  function convertCurrency(amount, from, to) {
+    if (from === to) return amount;
+
+    // Convert the 'from' currency to USD as a common base
+    const usdValue = amount / exchangeRates[from]['USD'];
+
+    // Convert the USD value to the 'to' currency
+    return usdValue * exchangeRates[to]['USD'];
+  }
+
+  function updateConversion() {
+    const amount = document.getElementById('amount').value;
+    const fromCurrency = document.getElementById('from-currency').value;
+    const toCurrency = document.getElementById('to-currency').value;
+
+    const convertedAmount = convertCurrency(amount, fromCurrency, toCurrency);
+    document.getElementById('converted-amount').textContent = `Converted Amount: ${convertedAmount} ${toCurrency}`;
+  }
+
+  function sendMoney(event) {
+    event.preventDefault();
+    window.location.href = "success.html";
+  }
+</script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">InstaPay</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="sendmoney.html">Send Money</a></li>
+          <li class="nav-item"><a class="nav-link" href="requestmoney.html">Request Money</a></li>
+          <li class="nav-item"><a class="nav-link" href="transactions.html">Transactions History</a></li>
+          <li class="nav-item"><a class="nav-link" href="wallet.html">Wallet Management</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="content-container">
+    <section class="container">
+      <header class="header-text">
+        <h1>Send Money</h1>
+      </header>
+      <form class="flex-form" onsubmit="sendMoney(event)">
+        <input id="recipient-id" type="text" placeholder="Recipient's InstaPay ID or Email/Phone" required>
+        <input id="amount" type="number" placeholder="Amount to send" required oninput="updateConversion()">
+        <select id="from-currency" onchange="updateConversion()">
+          <option value="USD">USD</option>
+          <option value="SGD">SGD</option>
+          <option value="BTC">Bitcoin</option>
+          <option value="ETH">Ethereum</option>
+        </select>
+        to
+        <select id="to-currency" onchange="updateConversion()">
+          <option value="USD">USD</option>
+          <option value="SGD">SGD</option>
+          <option value="BTC">Bitcoin</option>
+          <option value="ETH">Ethereum</option>
+        </select>
+        <div id="converted-amount">Converted Amount: </div>
+        <button class="submit-btn" type="submit">Send Money</button>
+        <a class="home-btn" href="dashboard.html">Return to Home</a>
+      </form>
+    </section>
+  </div>
+</body>
+</html>

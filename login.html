@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InstaPay - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-element {
+            margin-bottom: 20px;
+        }
+
+        .form-element label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-element input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .form-element input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form-element input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .form-element label, .form-element input {
+                font-size: 14px;
+            }
+        }
+    </style>
+
+<script>
+    function validateLoginForm(event) {
+        var username = document.forms["loginForm"]["username"].value;
+        var password = document.forms["loginForm"]["password"].value;
+        if (username == "" || password == "") {
+            alert("Both fields must be filled out.");
+            event.preventDefault();
+        } else {
+            window.location.href = "dashboard.html";
+            event.preventDefault();
+        }
+    }
+</script>
+</head>
+<body>
+<div class="container">
+    <h1>InstaPay - Login</h1>
+    <form name="loginForm" onsubmit="validateLoginForm(event)">
+        <div class="form-element">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-element">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-element">
+            <input type="submit" value="Login">
+        </div>
+    </form>
+    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+</div>
+</body>
+</html>

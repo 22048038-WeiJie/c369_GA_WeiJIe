@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InstaPay - Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-element {
+            margin-bottom: 20px;
+        }
+
+        .form-element label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-element input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .form-element input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form-element input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .form-element label, .form-element input {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <script>
+   function validateSignupForm() {
+    var username = document.forms["signupForm"]["username"].value;
+    var password = document.forms["signupForm"]["password"].value;
+    var confirmPassword = document.forms["signupForm"]["confirmPassword"].value;
+    var email = document.forms["signupForm"]["email"].value;
+    var dob = document.forms["signupForm"]["dob"].value;
+    var phone = document.forms["signupForm"]["phone"].value;
+
+    // Check if all fields are filled out
+    if (username == "" || password == "" || confirmPassword == "" || email == "" || dob == "" || phone == "") {
+        alert("All fields must be filled out.");
+        return false;
+    }
+
+    // Check if email contains .com
+    if (!email.endsWith(".com")) {
+        alert("Email must end with '.com'.");
+        return false;
+    }
+
+    // Check if passwords match
+    if (password != confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+    }
+
+    // Check if phone number is 8 digits or more and consists of only integers
+    var phonePattern = /^\d{8,}$/; // Changed pattern to match 8 or more digits
+    if (!phonePattern.test(phone)) {
+        alert("Phone number must be at least 8 digits and contain only numbers.");
+        return false;
+    }
+
+    // Check if user is 18 or older
+    var today = new Date();
+    var birthDate = new Date(dob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    if (age < 18) {
+        alert("You must be at least 18 years old to sign up.");
+        return false;
+    }
+
+    // Sign-up successful
+    alert("Sign-up Successful!");
+    window.location.href = "login.html";
+    event.preventDefault();
+}
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>InstaPay - Signup</h1>
+        <form name="signupForm" onsubmit="return validateSignupForm()">
+            <div class="form-element">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-element">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-element">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            <div class="form-element">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-element">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-element">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-element">
+                <input type="submit" value="Sign up">
+            </div>
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+</body>
+</html>
